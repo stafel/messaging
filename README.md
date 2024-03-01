@@ -19,7 +19,7 @@ podman network create messaging-nw
 Erstellen einen mariadb containers.
 
 ```
-podman run -d --name=messaging-mariadb -p 9001:3306 --network messaging-nw -e MARIADB_USER=backend -e MARIADB_PASSWORD=<YourPassHere> -e MARIADB_ROOT_PASSWORD=<YourPassHere> mariadb:latest
+podman run -d --name=messaging-mariadb -p 9001:3306 --network messaging-nw -e MARIADB_USER=backend -e MARIADB_PASSWORD=<YourPassHere> -e MARIADB_ROOT_PASSWORD=<YourPassHere> mariadb:10.11
 ```
 
 Erstellen der Datenbank und vergeben der Rechte auf der podman-container-Konsole.
