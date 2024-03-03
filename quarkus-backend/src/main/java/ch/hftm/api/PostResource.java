@@ -6,7 +6,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
+
 import ch.hftm.entities.Post;
+import ch.hftm.entities.ValidationText;
 import ch.hftm.repositories.PostRepository;
 import io.vertx.ext.web.handler.HttpException;
 import jakarta.inject.Inject;
@@ -34,6 +39,10 @@ public class PostResource {
 
     @Inject
     PostRepository postRepository;
+
+    @Inject
+    @Channel("requests")
+    Emitter<ValidationText> validationEmitter;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -89,6 +98,10 @@ public class PostResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void createPost(Post post) {
         postRepository.addPost(post);
+        // send text to validate
+        ValidationText validText = new ValidationText(post.getValidationId(), post.getContent(), false);
+        System.out.println("Sending " + validText);
+        validationEmitter.send(validText);
     }
 
     @DELETE
@@ -102,5 +115,11 @@ public class PostResource {
     @PUT
     public void updatePost(Post post) {
         postRepository.updatePost(post);
+    }
+
+    @Incoming("validations")
+    public void updatePostValidity(ValidationText validText) {
+        System.out.println("Received " + validText);
+        // TODO: update status in db
     }
 }

@@ -11,6 +11,7 @@ public class Post {
     @Id @GeneratedValue
     private Long id;
 
+    String validationId;
     Boolean validated;
 
     String title;
@@ -26,6 +27,7 @@ public class Post {
         this.content = content;
         this.creationDate = creationDate;
         this.validated = false; // a post is by default not validated
+        this.validationId = java.util.UUID.randomUUID().toString();
     }
 
     public Post(Long id, String title, String content, Date creationDate) {
@@ -34,6 +36,7 @@ public class Post {
         this.content = content;
         this.creationDate = creationDate;
         this.validated = false; // a post is by default not validated
+        this.validationId = java.util.UUID.randomUUID().toString();
     }
 
     public String getTitle() {
@@ -74,5 +77,21 @@ public class Post {
 
     public boolean isValidated() {
         return this.validated;
+    }
+
+    public String getValidationId() {
+        return validationId;
+    }
+
+    public void setValidationId(String validationId) {
+        this.validationId = validationId;
+    }
+
+    public Boolean getValidated() {
+        return validated;
+    }
+
+    public void setValidated(Boolean validated) {
+        this.validated = validated;
     }
 }
