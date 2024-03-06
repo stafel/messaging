@@ -1,5 +1,5 @@
 kafka:
-  brokers: ["redpanda:9092"]
+  brokers: ["localhost:9092"]
   schemaRegistry:
     enabled: true
     urls: ["http://localhost:8081"]

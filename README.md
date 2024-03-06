@@ -19,7 +19,18 @@ podman network create messaging-nw
 ```
 podman run -d --name=redpanda --network messaging-nw \
 -p 18081:18081 -p 18082:18082 -p 19092:19092 -p 19644:9644 \
-docker.redpanda.com/redpandadata/redpanda:latest
+-v redpanda-data:/var/lib/redpanda/data \
+docker.redpanda.com/redpandadata/redpanda:latest \
+redpanda start --kafka-addr internal://0.0.0.0:9092,external://0.0.0.0:19092 \
+--advertise-kafka-addr internal://redpanda-0:9092,external://localhost:19092 \
+--pandaproxy-addr internal://0.0.0.0:8082,external://0.0.0.0:18082 \
+--advertise-pandaproxy-addr internal://redpanda-0:8082,external://localhost:18082 \
+--schema-registry-addr internal://0.0.0.0:8081,external://0.0.0.0:18081 \
+--rpc-addr redpanda-0:33145 \
+--advertise-rpc-addr redpanda-0:33145 \
+--mode dev-container \
+--smp 1 \
+--default-log-level=info
 ```
 
 dazugehörige konsole:
