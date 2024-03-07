@@ -44,6 +44,11 @@ docker.redpanda.com/redpandadata/console:latest \
 -c 'echo "$CONSOLE_CONFIG_FILE" > /tmp/config.yml; cat /tmp/config.yml ;/app/console'
 ```
 
+Öffnen der Topics in der Redpanda-Konsole auf http://localhost:8080/topics und erstellen der zwei Topics
+
+- text-validation
+- text-return
+
 ### Erstellen eines MariaDB containers auf Podman
 
 Erstellen einen mariadb containers.
