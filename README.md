@@ -69,3 +69,8 @@ GRANT ALL PRIVILEGES ON blog_backend.* To backend;
 
 *In einem produktiven system darf der backend user nicht vollprivilegien haben*
 
+vergessen sie nicht das benötigte passwort für den quarkus-backend-container zu setzten in einem env-file oder per
+
+```
+export QUARKUS_DATASOURCE_PASSWORD=<YourPassHere>
+```
