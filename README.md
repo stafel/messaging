@@ -37,14 +37,14 @@ dazugehörige konsole:
 
 ```
 podman run --rm --name=redpanda-console --network messaging-nw \
---entrypoint /bin/sh -p 8080:8080 \
+--entrypoint /bin/sh -p 8085:8080 \
 -e CONFIG_FILEPATH=/tmp/config.yml \
 -e CONSOLE_CONFIG_FILE="`cat panda_console_config.yaml`" \
 docker.redpanda.com/redpandadata/console:latest \
 -c 'echo "$CONSOLE_CONFIG_FILE" > /tmp/config.yml; cat /tmp/config.yml ;/app/console'
 ```
 
-Öffnen der Topics in der Redpanda-Konsole auf http://localhost:8080/topics und erstellen der zwei Topics
+Öffnen der Topics in der Redpanda-Konsole auf http://localhost:8085/topics und erstellen der zwei Topics
 
 - text-validation
 - text-return
