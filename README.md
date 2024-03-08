@@ -2,7 +2,17 @@
 
 Messaging Lernübung mit Quarkus, Smallrye, Mutiny und Redpanda.
 
-Filtert Blogposts welche nur aus "wow" bestehen.
+Filtert Blogposts welche nur aus "wow" bestehen im quarkus-validator.
+
+## Übersicht projektstatus
+
+- Containerimages müssen manuell gebaut und gestartet werden, noch kein github container registry verfügbar
+- Die beiden quarkus systeme (quarkus_-backend und quarkus-valiator) erwarten folgende umsysteme (konfigurierbar durch application.properties)
+  - Redpanda instanz standardmässig auf localhost:19092
+    - Topics: text-validation, text-return
+  - Mariadb:10.11 instanz standardmässig auf localhost:9001
+    - user: backend
+    - db: blog_backend
 
 ## Bauen der container images
 
@@ -10,6 +20,12 @@ quarkus-backend und quarkus-validator images können im jeweiligen pfad mit folg
 
 ```
 ./mvnw package -Dnative -Dquarkus.native.container-build=true
+```
+
+oder direkt im dev modus gestartet werden, sie sind so konfiguriert, dass sie sich im parallelen Betrieb nicht gegenseitig beeinträchtigen
+
+```
+./mvnw compile quarkus:dev
 ```
 
 ## Einrichten der Hilfs-Cotainer
@@ -60,7 +76,7 @@ docker.redpanda.com/redpandadata/console:latest \
 Erstellen einen mariadb containers.
 
 ```
-podman run -d --name=messaging-mariadb -p 9001:3306 --network messaging-nw -e MARIADB_USER=backend -e MARIADB_PASSWORD=<YourPassHere> -e MARIADB_ROOT_PASSWORD=<YourPassHere> registry.hub.docker.com/library/mariadb:10.11
+podman run -d --name=messaging-mariadb -p 9001:3306 --network messaging-nw -e MARIADB_USER=backend -e MARIADB_PASSWORD=12345 -e MARIADB_ROOT_PASSWORD=12345 registry.hub.docker.com/library/mariadb:10.11
 ```
 
 Erstellen der Datenbank und vergeben der Rechte auf der podman-container-Konsole.
@@ -78,5 +94,5 @@ GRANT ALL PRIVILEGES ON blog_backend.* To backend;
 vergessen sie nicht das benötigte passwort für den quarkus-backend-container zu setzten in einem env-file oder per
 
 ```
-export QUARKUS_DATASOURCE_PASSWORD=<YourPassHere>
+export QUARKUS_DATASOURCE_PASSWORD=12345
 ```
