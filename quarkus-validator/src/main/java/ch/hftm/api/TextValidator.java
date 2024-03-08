@@ -17,6 +17,11 @@ public class TextValidator {
     @Incoming("requests")
     @Outgoing("validations")
     public Uni<ValidationText> updatePostValidity(Uni<ValidationText> validText) {
-        return validText.map( p -> p);
+        return validText.map( p -> {
+            if (p.getText().equals("wow")) {
+                p.setValid(false);
+            }
+            return p;
+        });
     }
 }
