@@ -1,3 +1,9 @@
+# Ziel und Zweck
+
+Messaging Lernübung mit Quarkus, Smallrye, Mutiny und Redpanda.
+
+Filtert Blogposts welche nur aus "wow" bestehen.
+
 ## Bauen der container images
 
 quarkus-backend und quarkus-validator images können im jeweiligen pfad mit folgendem Befehl gebaut werden.
