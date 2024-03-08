@@ -9,14 +9,14 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
 import ch.hftm.entities.ValidationText;
+import io.smallrye.mutiny.Uni;
 
 @ApplicationScoped
 public class TextValidator {
 
     @Incoming("requests")
     @Outgoing("validations")
-    public ValidationText updatePostValidity(ValidationText validText) {
-        System.out.println("Received " + validText);
-        return validText;
+    public Uni<ValidationText> updatePostValidity(Uni<ValidationText> validText) {
+        return validText.map( p -> p);
     }
 }
